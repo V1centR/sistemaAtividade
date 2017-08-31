@@ -12,9 +12,6 @@ define('VIEW', 'View/');
 $setOrder = filter_input(INPUT_GET,"sortby",FILTER_SANITIZE_STRING);
 $setType = filter_input(INPUT_GET,"type",FILTER_SANITIZE_STRING);
 
-echo $setOrder;
-
-
 $atividades = new AtividadesController();
-$dataAtividades = $atividades->index();
+$dataAtividades = $atividades->index('default');
 
