@@ -1,10 +1,14 @@
 {
   "require": {
-    "doctrine/orm": "*",
-    "igorescobar/jquery-mask-plugin": "^1.14"
+    "doctrine/orm": "*"    
   },
-  "autoload-dev": {
-    "psr-0": {"": "Core/"}
+  "autoload": {
+    "psr-0": {
+                "Controller\\": "Controller/",
+                "Model\\": "Model/"
+                
+        
+            }
   }
 
 

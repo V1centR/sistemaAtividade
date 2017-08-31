@@ -1,11 +1,9 @@
 <?php
 //config files
-include "./bootstrap.php";
-
+include "bootstrap.php";
 //header
-include VIEW.'/header.php';
+include VIEW.'header.php';
 ?>
-
 <body>
     <div class="container-fluid" style="margin-top: 50px; border: 1px dotted #ccc;">
         
@@ -25,24 +23,13 @@ include VIEW.'/header.php';
       
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-         
-          <?php
-          
-          echo "ok 123";
-          
-          
-          ?>
-          
-          
-          
-          
-          
+       
           <h2 class="sub-header">Registro de Atividades</h2>
           
           
     <form name="type_chamado" method="post" action="#">
         
-       <button type="button" class="btn" id="btn_aberto">Todos</button>
+        <button type="button" class="btn" id="btn_aberto"><span class="glyphicon glyphicon-alert"></span> Todos</button>
        <input type="hidden" name="aberto" id="aberto" value="0">
         
        <button type="button" class="btn btn-danger" id="btn_aberto">Pendente</button>
@@ -72,32 +59,60 @@ include VIEW.'/header.php';
                 </tr>
               </thead>
               <tbody>
+                  
+                  
+            <?php 
+            foreach ($dataAtividades as $value) {
                 
-            <?php
-
-            for($i=1; $i<=10;$i++){
-
+                $dataInicio = date_format($value->getDatainicio(), 'd/m/Y H:i');
+                $dataFim = date_format($value->getDatafim(), 'd/m/Y H:i');
+                
+                $sitData = $value->getSituacao();
+                $sitStr = '';
+                
+                $statusData = $value->getStatus()->getNome();
+                $statusId = $value->getStatus()->getId();
+                $setColorStatus = '';
+                
+                if($sitData == 0){
+                    $sitStr = "Inativo";                    
+                }else if($sitData == 1){
+                    $sitStr = "Ativo";                    
+                }
+                
+                switch ($statusId) {
+                    case 1:
+                        $setColorStatus = "-success";
+                        break;
+                    case 2:
+                        $setColorStatus = "-warning";
+                        break;
+                    case 3:
+                        $setColorStatus = "";
+                        break;
+                    case 4:
+                        $setColorStatus = "-danger";
+                        break;
+                }
+                
                 echo '
                         <tr class="hover-row">
-                          <td>Miguel Guimarães</td> <!-- nome -->
-                          <td>Testes com bootstrap</td> <!-- descricao -->
-                          <td>29/08/2017 14:51</td> <!-- data inicio -->
-                          <td>29/08/2017 17:00</td> <!-- data fim -->
-                          <td>Ativo</td> <!-- status -->
+                          <td>'.$value->getNome().'</td>
+                          <td>'.substr($value->getDescricao(),0,60  ).'...</td>
+                          <td>'.$dataInicio.'</td>
+                          <td>'.$dataFim.'</td>
+                          <td>'.$sitStr.'</td>
                           <td><div class="progress status-running-desenvolvimento">
-        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div>        
-    </div></td> <!-- situacao -->
+        <div class="progress-bar progress-bar'.$setColorStatus.' progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div>        
+    </div></td>
                         </tr>
                     ';
-            }                
-
-            ?>
-                
+            };?>                
               </tbody>
               
-              
             </table>              
-              
+              <div class="clearfix"></div>
+              <button type="button" class="btn btn-primary" id="btn_exec"><span class="glyphicon glyphicon-plus"></span> Nova Atividade</button>
             <nav aria-label="Page navigation">
               <ul class="pagination">
                 <li>
@@ -131,5 +146,5 @@ include VIEW.'/header.php';
 <?php
 
 //footer
-include "./view/footer.php";
+include "View/footer.php";
 ?>
