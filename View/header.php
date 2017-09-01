@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="View/css/dashboard.css">
         <link rel="stylesheet" type="text/css" href="View/css/style.css">    
         <script src="View/js/jquery-3.2.1.min.js"></script>
-        <script src="View/js/bootstrap.js"></script>
+        <script src="View/js/bootstrap.min.js"></script>
     </head>
     <nav class="navbar navbar-inverse navbar-fixed-top texture">
         <div class="container-fluid">

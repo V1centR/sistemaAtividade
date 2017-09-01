@@ -12,6 +12,10 @@ $(document).ready(function () {
     $('.typeAtividade').click(function () {
         orderAtividades(this.value);
     });
+    
+    $('button#btn_new').click(function () {
+        window.location.href = '/atividade.php';
+    });
 
     $('tr').click(function () {
         window.location = $(this).attr('href');
@@ -51,6 +55,13 @@ $(document).ready(function () {
             } else {
                 var labelSit = 'Ativo';
             }
+            
+            if(this.dataFim == 0 || this.dataFim == 'false'){
+                
+                var dataFinal = ' - ';
+            }else{
+                var dataFinal = this.dataFim;
+            }
 
             switch (this.statusId) {
                 case 1:
@@ -68,7 +79,7 @@ $(document).ready(function () {
             }
 
             $('tbody').append(
-                    '<tr class="hover-row" onclick="document.location=\'#\'" style="cursor:hand"><td>' + this.nome + '</td><td>' + this.descricao.substring(0, 70) + '...</td><td>' + this.dataInicio + '</td><td>' + this.dataFim + '</td><td>' + labelSit + '</td><td><div class="progress status-running-desenvolvimento"><div class="progress-bar progress-bar' + setColorStatus + ' progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div></div></td></tr>'
+                    '<tr class="hover-row" onclick="document.location=\'#\'" style="cursor:hand"><td>' + this.nome + '</td><td>' + this.descricao.substring(0, 70) + '...</td><td>' + this.dataInicio + '</td><td>' + dataFinal + '</td><td>' + labelSit + '</td><td><div class="progress status-running-desenvolvimento"><div class="progress-bar progress-bar' + setColorStatus + ' progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div></div></td></tr>'
                     );
         });
     }

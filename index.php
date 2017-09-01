@@ -13,14 +13,12 @@ include VIEW . 'header.php';
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">Registro de Atividades</h2>
             <form name="type_chamado" method="post" action="#">
-
                 <button type="button" class="btn typeAtividade" id="btn_todos" value="0"><span class="glyphicon glyphicon-alert"></span> Todos</button>        
                 <button type="button" class="btn btn-danger typeAtividade" id="btn_pendente" value="4">Pendente</button>
                 <button type="button" class="btn btn-primary typeAtividade" id="btn_exec" value="3">Em Desenvolvimento</button>
                 <button type="button" class="btn btn-warning typeAtividade" id="new_activ" value="2">Em Testes</button>
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-success typeAtividade" id="btn_final" value="1">Concluído</button>
-
             </form>
 
             <div class="table-responsive">
@@ -30,7 +28,7 @@ include VIEW . 'header.php';
                     <tbody></tbody>
                 </table>              
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary" id="btn_exec"><span class="glyphicon glyphicon-plus"></span> Nova Atividade</button>
+                <button type="button" class="btn btn-primary" id="btn_new"><span class="glyphicon glyphicon-plus"></span> Nova Atividade</button>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li>
@@ -39,10 +37,7 @@ include VIEW . 'header.php';
                             </a>
                         </li>
                         <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
+                        <li><a href="#">2</a></li>                        
                         <li>
                             <a href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
