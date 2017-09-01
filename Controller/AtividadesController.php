@@ -2,7 +2,6 @@
 
 namespace Controller;
 
-use Controller\ApplicationRun;
 use Model\Atividades;
 
 class AtividadesController {
@@ -92,8 +91,34 @@ class AtividadesController {
 
     public function getStatusItems() {
         $getItems = new Atividades($this->em);
-
         return $getItems->getItemStatus();
+    }
+
+    public function updateAtividade($dataAtividade) {
+
+        $checkEmptyValue = in_array("", $dataAtividade);
+
+        if (!$checkEmptyValue) {
+
+            $updateData = new Atividades($this->em);
+            $execSuccess = $updateData->updateAtividade($dataAtividade);
+        } else {
+            $execSuccess = false;
+        }
+
+        return $execSuccess;
+    }
+
+    public function getAtividadeEdit($idAtividade) {
+
+        $getAtividade = new Atividades($this->em);
+        $atividade = $getAtividade->getAtividade($idAtividade);
+
+        return $atividade;
+    }
+
+    public function deleteAtividade($param) {
+        
     }
 
 }

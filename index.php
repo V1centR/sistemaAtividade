@@ -21,10 +21,8 @@ include VIEW . 'header.php';
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-success typeAtividade" id="btn_final" value="1">Concluído</button>
             </form>
-
             <div class="table-responsive">
-                <table class="table " style="font-size: 12px;">
-                    
+                <table class="table " style="font-size: 12px;">                    
                     <!-- lista aparece aqui-->
                     <tbody></tbody>
                 </table>              

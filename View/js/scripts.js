@@ -2,8 +2,9 @@ $(document).ready(function () {
     var ambient = localStorage.getItem('ambient');
     var editMode = $('input#editMode').val();
     var formMode = $('input#formMode').val();
-    
-    if(editMode === 'false'){        
+    var idAtividade = $('input#idAtividade').val();
+
+    if (editMode === 'false') {
         if (ambient === null || ambient === '' || ambient === 0) {
             orderAtividades(0);
         } else {
@@ -20,38 +21,33 @@ $(document).ready(function () {
             return false;
         });
     }
-    
-    if(formMode === 'true'){
-        $('button#voltar').click(function(){        
+    if (formMode === 'true') {
+        $('button#voltar').click(function () {
             window.location.href = '/';
         });
-        
-        $('#enviar').click(function () {            
-            execForm();
+        $('#enviar').click(function () {
+            if (idAtividade) {
+                execForm(idAtividade);
+            } else {
+                execForm();
+            }
         });
-    }    
-    if(editMode === 'true'){
-        
+    }
+    if (editMode === 'true') {
         $('form.addAtividade')[0].reset();
-        
     }
     function orderAtividades(type) {
-        console.log("O tipo de ordenação é  " + type);
         $.ajax({
             type: 'GET',
             dataType: 'json',
             url: '/api/orderAtividades.php',
             data: 'setType=' + type,
             success: function (data) {
-                //console.log(strJson);
                 $('tbody').html('');
                 var ambient = localStorage.setItem('ambient', type);
-                // $('tbody').load("api/orderAtividades.php?setType=" + type);
                 makeList(data);
-                console.log(data);
             },
             error: function (data) {
-                console.log(data);
                 return false;
             }
         });
@@ -64,15 +60,16 @@ $(document).ready(function () {
                 var labelSit = 'Inativo';
             } else {
                 var labelSit = 'Ativo';
-            }            
-            if(this.dataFim == 0 || this.dataFim == 'false'){
+            }
+            if (this.dataFim == 0 || this.dataFim == 'false') {
                 var dataFinal = ' - ';
-            }else{
+            } else {
                 var dataFinal = this.dataFim;
             }
             switch (this.statusId) {
                 case 1:
                     var setColorStatus = "-success";
+                    var backgroundLine = 'background-color:#e8ffce;';
                     break;
                 case 2:
                     var setColorStatus = "-warning";
@@ -85,43 +82,43 @@ $(document).ready(function () {
                     break;
             }
             $('tbody').append(
-                    '<tr class="hover-row" onclick="document.location=\'atividade.php?edit=true&atividade='+ this.id +'\'" style="cursor:hand"><td>' + this.nome + '</td><td>' + this.descricao.substring(0, 70) + '...</td><td>' + this.dataInicio + '</td><td>' + dataFinal + '</td><td>' + labelSit + '</td><td><div class="progress status-running-desenvolvimento"><div class="progress-bar progress-bar' + setColorStatus + ' progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div></div></td></tr>'
+                    '<tr class="hover-row" onclick="document.location=\'atividade.php?edit=true&atividade=' + this.id + '\'" style="cursor:hand; '+backgroundLine+'"><td>' + this.nome + '</td><td>' + this.descricao.substring(0, 70) + '...</td><td>' + this.dataInicio + '</td><td>' + dataFinal + '</td><td>' + labelSit + '</td><td><div class="progress status-running-desenvolvimento"><div class="progress-bar progress-bar' + setColorStatus + ' progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div></div></td></tr>'
                     );
         });
     }
-    
-    function execForm(){
-        
+
+    function execForm(idAtividade) {
+        var idAtividade = idAtividade;
+        if (idAtividade) {
+            var idAtividade = idAtividade;
+        } else {
+            var atividade = 0;
+        }
         var nome = $("input#nome").val();
         var descricao = $("textarea#desc").val();
         var status = $("select#status").val();
         var situacao = $('input[name="situacao"]:checked').val();
-        
-        if(nome == '' || descricao == ''){                
+        if (nome == '' || descricao == '') {
             $('span.message-danger').append('<div class="alert alert-danger" role="alert"><strong>ATENÇÃO!</strong> Todos os campos são obrigatórios!</div>');
             return false;
         }
-        
-        $("button.btn-enviar").attr("disabled","disabled");
+        $("button.btn-enviar").attr("disabled", "disabled");
         $('span.loader').append('<img src="View/images/loader.gif">');
-        
-        var setJson = JSON.stringify({'nome': nome, 'desc': descricao,'status': status, 'situacao': situacao});
-        
+        var setJson = JSON.stringify({'nome': nome, 'desc': descricao, 'status': status, 'situacao': situacao, 'idAtividade': idAtividade});
+
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: '/api/addAtividade.php',
             data: setJson,
             success: function (data) {
-               // console.log(setJson)
-               $('span.loader').remove();
-               $('span.message-danger').remove();
-               $("form.addAtividade").fadeOut('fast');
-               $('span.message').append('<div class="alert alert-success" role="alert">Atividade registrada com sucesso! <a href="/">(Clique para voltar)</a></div>');
+                $('span.loader').remove();
+                $('span.message-danger').remove();
+                $("form.addAtividade").fadeOut('fast');
+                $('span.message').append('<div class="alert alert-success" role="alert">Atividade registrada com sucesso! <a href="/">(Clique para voltar)</a></div>');
                 return true;
             },
             error: function (data) {
-                console.log(data);
                 return false;
             }
         });
