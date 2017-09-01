@@ -4,7 +4,7 @@ include "bootstrap.php";
 //header
 include VIEW . 'header.php';
 ?>
-<script src="View/js/jqajax.js"></script>
+<script src="View/js/scripts.js"></script>
 <body>
     <div class="container-fluid" style="margin-top: 50px; border: 1px dotted #ccc;">
 
@@ -13,6 +13,7 @@ include VIEW . 'header.php';
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">Registro de Atividades</h2>
             <form name="type_chamado" method="post" action="#">
+                <input type="hidden" id="editMode" name="edit" value="false">
                 <button type="button" class="btn typeAtividade" id="btn_todos" value="0"><span class="glyphicon glyphicon-alert"></span> Todos</button>        
                 <button type="button" class="btn btn-danger typeAtividade" id="btn_pendente" value="4">Pendente</button>
                 <button type="button" class="btn btn-primary typeAtividade" id="btn_exec" value="3">Em Desenvolvimento</button>
