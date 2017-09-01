@@ -14,4 +14,5 @@ $setType = filter_input(INPUT_GET,"type",FILTER_SANITIZE_STRING);
 
 $atividades = new AtividadesController();
 $dataAtividades = $atividades->index('default');
+$itemsStatus = $atividades->getStatusItems();
 

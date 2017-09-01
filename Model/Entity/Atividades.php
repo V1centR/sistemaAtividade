@@ -124,7 +124,7 @@ class Atividades
         return $this;
     }
 
-    public function setStatus(\Status $status) {
+    public function setStatus($status) {
         $this->status = $status;
         return $this;
     }
